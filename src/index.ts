@@ -1,7 +1,7 @@
 import { recognize } from "./speechServices";
 import { searchPoly } from "./googlePoly";
-import * as BABYLON from "babylonjs";
-import "babylonjs-loaders";
+import * as BABYLON from "@babylonjs/core/Legacy/legacy";
+import "@babylonjs/loaders";
 
 import WebXRPolyfill from "webxr-polyfill";
 const polyfill = new WebXRPolyfill();
