@@ -1,0 +1,22 @@
+{
+  "name": "polyspace",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babylonjs/gui": "^4.1.0",
+    "babylonjs": "^4.1.0",
+    "babylonjs-loaders": "^4.1.0",
+    "microsoft-cognitiveservices-speech-sdk": "^1.11.0",
+    "parcel": "^1.12.4",
+    "webxr-polyfill": "^2.0.3"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.2"
+  }
+}
