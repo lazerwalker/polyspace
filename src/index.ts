@@ -1,7 +1,6 @@
 import { recognize } from "./speechServices";
 import { searchPoly } from "./googlePoly";
 import * as BABYLON from "babylonjs";
-import * as GUI from "@babylonjs/gui";
 import "babylonjs-loaders";
 
 import WebXRPolyfill from "webxr-polyfill";
@@ -28,18 +27,6 @@ var createScene = async function (canvas: HTMLCanvasElement) {
 
   scene.createDefaultCameraOrLight(true, true, true);
 
-  // Our built-in 'sphere' shape.
-  var sphere = BABYLON.MeshBuilder.CreateSphere(
-    "sphere",
-    { diameter: 1.4, segments: 32 },
-    scene
-  );
-
-  // Move the sphere upward 1/2 its height
-  sphere.position.y = 1;
-
-  sphere.material = new BABYLON.StandardMaterial("sphereMat", scene);
-
   const environment = scene.createDefaultEnvironment({
     groundColor: BABYLON.Color3.White(),
   });
@@ -49,34 +36,30 @@ var createScene = async function (canvas: HTMLCanvasElement) {
     floorMeshes: [environment.ground],
   });
 
+  console.log("Hi?");
   xr.input.onControllerAddedObservable.add((xrController) => {
-    alert(xrController.motionController.getComponentIds());
-    // xrController.motionController.getComponent(WebXRControllerComponent)
-    // more fun with the new controller, since we are in XR!
+    xrController.onMotionControllerInitObservable.add((motionController) => {
+      if (!motionController.components["b-button"]) {
+        return;
+      }
 
-    // get the motionController, which is similar to but NOT a gamepad:
-    const motionController = xrController.motionController;
-    // xr supports all types of inputs, so some won't have a motion controller
-    if (!motionController) {
-      // using touch, hands, gaze, something else?
-    }
-
-    // mainComponent.onButtonStateChanged.add((component /* WebXRControllerComponent  ) => {
-    // // check for changes:
-    // // pressed changed?
-    // if (component.changes.pressed) {
-    //     // is it pressed?
-    //     if (component.changes.pressed.current === true) {
-    //         // pressed
-    //     }
-    //     // or a differend way:
-    //     if (component.pressed) {
-    //         // component is pressed.
-    //     }
-    // }
-
-    //       getMicInput();
+      motionController.components[
+        "b-button"
+      ].onButtonStateChangedObservable.add((button) => {
+        if (button.value) {
+          getMicInput();
+        }
+      });
+    });
   });
+
+  // var advancedTexture = GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+  // var text1 = new GUI.TextBlock();
+  // text1.text = "Hello world";
+  // text1.color = "white";
+  // text1.fontSize = 24;
+  // advancedTexture.addControl(text1);
 
   return scene;
 };
