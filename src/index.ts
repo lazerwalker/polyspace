@@ -38,14 +38,19 @@ var createScene = async function (canvas: HTMLCanvasElement) {
 
   console.log("Hi?");
   xr.input.onControllerAddedObservable.add((xrController) => {
+    console.log("controller added");
     xrController.onMotionControllerInitObservable.add((motionController) => {
+      console.log("motion controller initted");
       if (!motionController.components["b-button"]) {
         return;
       }
 
+      console.log("Has b");
+
       motionController.components[
         "b-button"
       ].onButtonStateChangedObservable.add((button) => {
+        console.log("Pressed");
         if (button.value) {
           getMicInput();
         }
