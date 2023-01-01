@@ -16,7 +16,7 @@
     "babylonjs": "^4.1.0",
     "babylonjs-loaders": "^4.1.0",
     "microsoft-cognitiveservices-speech-sdk": "^1.11.0",
-    "parcel": "^1.12.4",
+    "parcel": "^2.8.2",
     "webxr-polyfill": "^2.0.3"
   },
   "devDependencies": {
